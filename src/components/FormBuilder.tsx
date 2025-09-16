@@ -40,8 +40,8 @@ export default function FormBuilder() {
     return (
       <div className="flex flex-col items-center justify-center h-full rounded-lg border-2 border-dashed border-[#4a4a6e] text-gray-400">
         <FileQuestion className="w-16 h-16 mb-4" />
-        <h2 className="text-xl font-semibold">Canvas is Empty</h2>
-        <p>Drag a field from the left palette to get started.</p>
+        <h2 className="text-xl text-[#2e2e4a] font-semibold">Canvas is Empty</h2>
+        <p className="text-[#2e2e4a]">Drag a field from the left palette to get started.</p>
       </div>
     );
   }
@@ -51,7 +51,7 @@ export default function FormBuilder() {
   return (
     <div>
       <WrapperComponent
-        className="space-y-4 md:flex md:flex-wrap md:space-y-0 md:-mx-2 bg-[#a3a3c2] p-4 rounded-lg"
+        className="space-y-4 md:flex md:flex-wrap md:space-y-0 md:-mx-2 bg-[#e0e0e0] p-4 rounded-lg"
         onSubmit={isPreviewMode ? handleSubmit : undefined}
         noValidate={isPreviewMode}
       >

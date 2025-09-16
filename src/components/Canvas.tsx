@@ -29,7 +29,7 @@ export default function Canvas() {
     <div
       ref={drop}
       // Added conditional styling for visual feedback when dragging over
-      className={`relative flex-1 bg-[#e0e0e0] p-6 overflow-auto transition-all
+      className={`relative flex-1 bg-[#a3a3c2] p-6 overflow-auto transition-all
                   ${
                     isOver
                       ? "border-2 border-dashed border-[#00bcd4]"

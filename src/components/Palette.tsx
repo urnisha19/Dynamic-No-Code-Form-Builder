@@ -91,12 +91,12 @@ const DraggableField = ({ type, label, icon: Icon }: PaletteField) => {
 
 export default function Palette() {
   return (
-    <aside className="hidden lg:flex flex-col w-64 min-w-[16rem] bg-[#2e2e4a] p-4 overflow-y-auto border-r border-[#4a4a6e]">
-      <h2 className="text-lg font-semibold text-[#e0e0e0] mb-4">Fields</h2>
+    <aside className="hidden lg:flex flex-col w-64 min-w-[16rem] bg-[#a3a3c2] p-4 overflow-y-auto border-r border-[#4a4a6e]">
+      <h2 className="text-lg font-bold text-[#2e2e4a] mb-4">Fields</h2>
       <div className="space-y-6">
         {fieldGroups.map((group) => (
           <div key={group.title}>
-            <h3 className="text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wide">
+            <h3 className="text-sm font-bold text-[#2e2e4a] mb-2 uppercase tracking-wide">
               {group.title}
             </h3>
             <div className="space-y-2">
