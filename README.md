@@ -2,8 +2,8 @@
 
 A modern, drag-and-drop form builder built with Next.js, TypeScript, and Tailwind CSS. This application allows users to visually construct forms, preview them in real-time, and manage their structure dynamically.
 
-![Dynamic Form Builder Interface 1](https://ibb.co.com/b5Pt1CTf)
-![Dynamic Form Builder Interface 2](https://ibb.co.com/dsv2dNcS)
+![Dynamic Form Builder Interface 1](https://i.ibb.co.com/B2tkLQb1/1.png)
+![Dynamic Form Builder Interface 2](https://i.ibb.co.com/HLyzWc20/2.png)
 
 ## 🌐 Deployment
 
