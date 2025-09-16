@@ -1,0 +1,53 @@
+//center
+"use client";
+import React from "react";
+import FormBuilder from "./FormBuilder";
+import { useDrop } from "react-dnd";
+import { useFormBuilder, FieldType } from "@/context/FormBuilderContext";
+
+export default function Canvas() {
+  const { addField } = useFormBuilder();
+
+  // Added useDrop hook to make the canvas a drop target for new fields.
+  const [{ isOver }, drop] = useDrop(
+    () => ({
+      // This is the type of item it will accept, defined in Palette.tsx
+      accept: "PALETTE_FIELD",
+      drop: (item: { type: FieldType }) => {
+        addField(item.type); // Add the new field to the form schema
+      },
+      // This collects information about the drag state for visual feedback
+      collect: (monitor) => ({
+        isOver: monitor.isOver(),
+      }),
+    }),
+    [addField] // Dependency array
+  );
+
+  return (
+    // The `ref={drop}` connects the drop logic to this DOM element
+    <div
+      ref={drop}
+      // Added conditional styling for visual feedback when dragging over
+      className={`relative flex-1 bg-[#e0e0e0] p-6 overflow-auto transition-all
+                  ${
+                    isOver
+                      ? "border-2 border-dashed border-[#00bcd4]"
+                      : "border-2 border-transparent"
+                  }`}
+    >
+      <h1 className="text-center font-bold text-xl text-[#2e2e4a] mb-5">
+        {" "}
+        Form
+      </h1>
+      <FormBuilder />
+
+      {/* A placeholder message that shows when dragging a new field */}
+      {isOver && (
+        <div className="absolute inset-0 flex items-center justify-center bg-[#5c6bc0]/10 pointer-events-none">
+          <p className="text-[#00bcd4] font-semibold">Drop to add field</p>
+        </div>
+      )}
+    </div>
+  );
+}

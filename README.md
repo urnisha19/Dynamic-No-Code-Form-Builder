@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Dynamic No-Code Form Builder
 
-## Getting Started
+A modern, drag-and-drop form builder built with Next.js, TypeScript, and Tailwind CSS. This application allows users to visually construct forms, preview them in real-time, and manage their structure dynamically.
 
-First, run the development server:
+![Dynamic Form Builder Interface](https://i.imgur.com/8a6eY7t.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   **Drag & Drop Interface**: Easily add and reorder form fields from the palette to the canvas using `react-dnd`.
+-   **Real-Time Preview**: Instantly switch between the builder and a live preview of the form.
+-   **Component Palette**: A sidebar with various pre-built form input types (Text, Email, Checkbox, etc.).
+-   **Dynamic Settings Panel**: Select any field on the canvas to edit its properties (label, placeholder, required status, column width, etc.).
+-   **Local Storage Persistence**: Your form schema is automatically saved to your browser's local storage, so your work is never lost.
+-   **Fully Responsive**: The layout is designed to work seamlessly on all screen sizes.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-   **Framework**: [Next.js](https://nextjs.org/) (with App Router)
+-   **Language**: [TypeScript](https://www.typescriptlang.org/)
+-   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+-   **Drag & Drop**: [React DnD](https://react-dnd.github.io/react-dnd/)
+-   **Icons**: [Lucide React](https://lucide.dev/)
+-   **Deployment**: [Vercel](https://vercel.com/)
 
-## Learn More
+## ⚙️ Setup and Installation
 
-To learn more about Next.js, take a look at the following resources:
+Follow these steps to get the project running locally.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+    cd your-repo-name
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+    This will install Next.js, React, Tailwind CSS, and the other required packages like `react-dnd` and `lucide-react`.
 
-## Deploy on Vercel
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4.  **Open the application:**
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌐 Deployment
+
+This project can be easily deployed with [Vercel](https://vercel.com/), the creators of Next.js.
+
+1.  Push your code to a GitHub repository.
+2.  Go to the Vercel dashboard and select "Add New... > Project".
+3.  Import your GitHub repository.
+4.  Vercel will automatically detect the Next.js framework. Click "Deploy".
+5.  Your application will be live in minutes!
