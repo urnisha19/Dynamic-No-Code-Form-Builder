@@ -4,6 +4,14 @@ import { useFormBuilder } from "@/context/FormBuilderContext";
 import FormElement from "./fields/FormElement";
 import { FileQuestion } from "lucide-react";
 
+// Type for schema field
+interface SchemaField {
+  id: string;
+  columnWidth?: string;
+  // extend this with actual props your fields have
+  [key: string]: unknown;
+}
+
 //Helper to map percentage widths
 const getWidthClass = (width: string | undefined): string => {
   if (!width) return "md:w-full";
@@ -24,10 +32,9 @@ const getWidthClass = (width: string | undefined): string => {
 export default function FormBuilder() {
   const { schema, moveField, isPreviewMode } = useFormBuilder();
 
-  const [submittedData, setSubmittedData] = useState<Record<
-    string,
-    FormDataEntryValue
-  > | null>(null);
+  const [submittedData, setSubmittedData] = useState<
+    Record<string, FormDataEntryValue> | null
+  >(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,7 +65,7 @@ export default function FormBuilder() {
         onSubmit={isPreviewMode ? handleSubmit : undefined}
         noValidate={isPreviewMode}
       >
-        {schema.fields.map((field, index) => {
+        {schema.fields.map((field: SchemaField, index: number) => {
           // Compute width classes responsively
           const widthClass = isPreviewMode
             ? getWidthClass(field.columnWidth)
