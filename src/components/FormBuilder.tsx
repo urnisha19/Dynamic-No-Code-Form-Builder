@@ -25,6 +25,7 @@ export default function FormBuilder() {
   const { schema, moveField, isPreviewMode } = useFormBuilder();
   const [submittedData, setSubmittedData] = useState<Record<
     string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     any
   > | null>(null);
 
