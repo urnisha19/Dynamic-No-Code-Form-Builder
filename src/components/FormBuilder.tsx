@@ -56,8 +56,11 @@ export default function FormBuilder() {
     <div>
       <WrapperComponent
         className="space-y-4 md:flex md:flex-wrap md:space-y-0 md:-mx-2 bg-[#e0e0e0] p-4 rounded-lg"
-        {...(isPreviewMode && { onSubmit: handleSubmit })}
-        noValidate={isPreviewMode}
+        // ▼▼▼ THIS IS THE CORRECTED BLOCK ▼▼▼
+        {...(isPreviewMode && {
+          onSubmit: handleSubmit,
+          noValidate: true,
+        })}
       >
         {schema.fields.map((field: SchemaField, index: number) => {
           // Compute width classes responsively
