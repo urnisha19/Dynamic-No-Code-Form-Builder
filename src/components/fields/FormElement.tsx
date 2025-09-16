@@ -1,4 +1,5 @@
 "use client";
+import React, { useRef, useEffect } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useFormBuilder, Field, FieldType } from "@/context/FormBuilderContext";
 import FieldRenderer from "./FieldRenderer";
@@ -23,6 +24,8 @@ export default function FormElement({
     addField,
   } = useFormBuilder();
 
+  const nodeRef = useRef<HTMLDivElement | null>(null);
+
   // Drag setup
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: "FORM_FIELD",
@@ -35,10 +38,7 @@ export default function FormElement({
   const [{ isOver }, dropRef] = useDrop(() => ({
     accept: ["FORM_FIELD", "PALETTE_FIELD"],
 
-    drop: (
-      item: { index?: number; type?: FieldType },
-      monitor
-    ) => {
+    drop: (item: { index?: number; type?: FieldType }, monitor) => {
       if (monitor.getItemType() === "PALETTE_FIELD" && item.type) {
         addField(item.type, index);
       }
@@ -59,9 +59,16 @@ export default function FormElement({
     }),
   }));
 
+  // Attach drag + drop to the DOM node safely
+  useEffect(() => {
+    if (nodeRef.current) {
+      dragRef(dropRef(nodeRef.current));
+    }
+  }, [dragRef, dropRef]);
+
   return (
     <div
-      ref={(node) => dragRef(dropRef(node))}
+      ref={nodeRef}
       onClick={(e) => {
         e.stopPropagation();
         if (!isPreviewMode) setSelectedFieldId(field.id);
