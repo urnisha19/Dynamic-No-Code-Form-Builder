@@ -1,9 +1,8 @@
 "use client";
-import React, { useState, FormEvent } from "react"; // Import FormEvent
-import { useFormBuilder } from "@/context/FormBuilderContext";
+import React, { useState, FormEvent } from "react";
+import { useFormBuilder, Field as SchemaField } from "@/context/FormBuilderContext";
 import FormElement from "./fields/FormElement";
 import { FileQuestion } from "lucide-react";
-import { Field as SchemaField } from "@/context/FormBuilderContext"; // Alias the import
 
 //Helper to map percentage widths
 const getWidthClass = (width: string | undefined): string => {
@@ -25,16 +24,13 @@ const getWidthClass = (width: string | undefined): string => {
 export default function FormBuilder() {
   const { schema, moveField, isPreviewMode } = useFormBuilder();
 
-  const [submittedData, setSubmittedData] = useState<Record<
-    string,
-    FormDataEntryValue
-  > | null>(null);
+  const [submittedData, setSubmittedData] = useState<Record<string, FormDataEntryValue> | null>(null);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    setSubmittedData(data); // show modal
+    setSubmittedData(data);
   };
 
   // Empty canvas state
@@ -43,54 +39,51 @@ export default function FormBuilder() {
       <div className="flex flex-col items-center justify-center h-full rounded-lg border-2 border-dashed border-[#4a4a6e] text-gray-400">
         <FileQuestion className="w-16 h-16 mb-4" />
         <h2 className="text-xl text-[#2e2e4a] font-semibold">Canvas is Empty</h2>
-        <p className="text-[#2e2e4a]">
-          Drag a field from the left palette to get started.
-        </p>
+        <p className="text-[#2e2e4a]">Drag a field from the left palette to get started.</p>
       </div>
     );
   }
 
-  const WrapperComponent = isPreviewMode ? "form" : "div";
-
   return (
     <div>
-      <WrapperComponent
-        className="space-y-4 md:flex md:flex-wrap md:space-y-0 md:-mx-2 bg-[#e0e0e0] p-4 rounded-lg"
-        // ▼▼▼ THIS IS THE CORRECTED BLOCK ▼▼▼
-        {...(isPreviewMode && {
-          onSubmit: handleSubmit,
-          noValidate: true,
-        })}
-      >
-        {schema.fields.map((field: SchemaField, index: number) => {
-          // Compute width classes responsively
-          const widthClass = isPreviewMode
-            ? getWidthClass(field.columnWidth)
-            : "w-full";
+      {isPreviewMode ? (
+        <form
+          className="space-y-4 md:flex md:flex-wrap md:space-y-0 md:-mx-2 bg-[#e0e0e0] p-4 rounded-lg"
+          onSubmit={handleSubmit}
+          noValidate
+        >
+          {schema.fields.map((field: SchemaField, index: number) => {
+            const widthClass = getWidthClass(field.columnWidth);
+            return (
+              <div key={field.id} className={`w-full px-2 mb-4 ${widthClass}`}>
+                <FormElement field={field} index={index} moveField={moveField} />
+              </div>
+            );
+          })}
 
-          return (
-            <div
-              key={field.id}
-              // Always full-width on mobile, then fraction on larger screens
-              className={`w-full px-2 mb-4 ${widthClass}`}
-            >
-              <FormElement field={field} index={index} moveField={moveField} />
+          {schema.fields.length > 0 && (
+            <div className="w-full px-2 mt-6">
+              <button
+                type="submit"
+                className="px-6 py-2 rounded-md font-semibold bg-green-500 text-white hover:bg-opacity-80 transition-colors"
+              >
+                Submit
+              </button>
             </div>
-          );
-        })}
-
-        {/* Show submit button in preview mode */}
-        {isPreviewMode && schema.fields.length > 0 && (
-          <div className="w-full px-2 mt-6">
-            <button
-              type="submit"
-              className="px-6 py-2 rounded-md font-semibold bg-green-500 text-white hover:bg-opacity-80 transition-colors"
-            >
-              Submit
-            </button>
-          </div>
-        )}
-      </WrapperComponent>
+          )}
+        </form>
+      ) : (
+        <div className="space-y-4 md:flex md:flex-wrap md:space-y-0 md:-mx-2 bg-[#e0e0e0] p-4 rounded-lg">
+          {schema.fields.map((field: SchemaField, index: number) => {
+            const widthClass = getWidthClass(field.columnWidth);
+            return (
+              <div key={field.id} className={`w-full px-2 mb-4 ${widthClass}`}>
+                <FormElement field={field} index={index} moveField={moveField} />
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {/* Modal for submitted data */}
       {submittedData && (
@@ -100,23 +93,15 @@ export default function FormBuilder() {
             <table className="w-full border-collapse border border-[#4a4a6e] text-sm">
               <thead>
                 <tr className="bg-[#3c3c5c]">
-                  <th className="border border-[#4a4a6e] px-3 py-2 text-left">
-                    Field
-                  </th>
-                  <th className="border border-[#4a4a6e] px-3 py-2 text-left">
-                    Value
-                  </th>
+                  <th className="border border-[#4a4a6e] px-3 py-2 text-left">Field</th>
+                  <th className="border border-[#4a4a6e] px-3 py-2 text-left">Value</th>
                 </tr>
               </thead>
               <tbody>
                 {Object.entries(submittedData).map(([key, value]) => (
                   <tr key={key} className="hover:bg-[#4a4a6e]">
-                    <td className="border border-[#4a4a6e] px-3 py-2 font-medium">
-                      {key}
-                    </td>
-                    <td className="border border-[#4a4a6e] px-3 py-2">
-                      {String(value)}
-                    </td>
+                    <td className="border border-[#4a4a6e] px-3 py-2 font-medium">{key}</td>
+                    <td className="border border-[#4a4a6e] px-3 py-2">{String(value)}</td>
                   </tr>
                 ))}
               </tbody>
