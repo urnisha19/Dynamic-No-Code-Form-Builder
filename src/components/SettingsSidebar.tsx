@@ -130,10 +130,10 @@ export default function SettingsSidebar() {
             }
             className="input-base"
           >
-            <option value="100%">Full (100%)</option>
-            <option value="66%">Two Thirds (66%)</option>
-            <option value="50%">Half (50%)</option>
-            <option value="33%">One Third (33%)</option>
+            <option value="100%" className="bg-[#a3a3c2]">Full (100%)</option>
+            <option value="66%" className="bg-[#a3a3c2]">Two Thirds (66%)</option>
+            <option value="50%" className="bg-[#a3a3c2]">Half (50%)</option>
+            <option value="33%" className="bg-[#a3a3c2]">One Third (33%)</option>
           </select>
         </SettingsWrapper>
 
