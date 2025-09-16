@@ -1,16 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react"; // Import FormEvent
 import { useFormBuilder } from "@/context/FormBuilderContext";
 import FormElement from "./fields/FormElement";
 import { FileQuestion } from "lucide-react";
-
-// Type for schema field
-interface SchemaField {
-  id: string;
-  columnWidth?: string;
-  // extend this with actual props your fields have
-  [key: string]: unknown;
-}
+import { Field as SchemaField } from "@/context/FormBuilderContext"; // Alias the import
 
 //Helper to map percentage widths
 const getWidthClass = (width: string | undefined): string => {
@@ -32,11 +25,12 @@ const getWidthClass = (width: string | undefined): string => {
 export default function FormBuilder() {
   const { schema, moveField, isPreviewMode } = useFormBuilder();
 
-  const [submittedData, setSubmittedData] = useState<
-    Record<string, FormDataEntryValue> | null
-  >(null);
+  const [submittedData, setSubmittedData] = useState<Record<
+    string,
+    FormDataEntryValue
+  > | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
@@ -62,7 +56,7 @@ export default function FormBuilder() {
     <div>
       <WrapperComponent
         className="space-y-4 md:flex md:flex-wrap md:space-y-0 md:-mx-2 bg-[#e0e0e0] p-4 rounded-lg"
-        onSubmit={isPreviewMode ? handleSubmit : undefined}
+        {...(isPreviewMode && { onSubmit: handleSubmit })}
         noValidate={isPreviewMode}
       >
         {schema.fields.map((field: SchemaField, index: number) => {
