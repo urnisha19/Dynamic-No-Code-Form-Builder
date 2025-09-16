@@ -1,6 +1,5 @@
-//left sidebar
 "use client";
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { useFormBuilder, FieldType } from "@/context/FormBuilderContext";
 import {
@@ -59,6 +58,9 @@ const fieldGroups: FieldGroup[] = [
 const DraggableField = ({ type, label, icon: Icon }: PaletteField) => {
   const { isPreviewMode } = useFormBuilder();
 
+  // Create a ref for the draggable div
+  const dragRef = useRef<HTMLDivElement | null>(null);
+
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: "PALETTE_FIELD",
@@ -71,9 +73,16 @@ const DraggableField = ({ type, label, icon: Icon }: PaletteField) => {
     [type, isPreviewMode]
   );
 
+  // Attach the drag behavior to the ref
+  useEffect(() => {
+    if (dragRef.current) {
+      drag(dragRef.current);
+    }
+  }, [drag]);
+
   return (
     <div
-      ref={drag}
+      ref={dragRef}
       className={`flex items-center gap-3 px-3 py-2 rounded-md border border-[#4a4a6e] bg-[#3c3c5c] transition-all duration-200 ease-in-out
         ${
           isPreviewMode
