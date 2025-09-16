@@ -23,10 +23,10 @@ const getWidthClass = (width: string | undefined): string => {
 
 export default function FormBuilder() {
   const { schema, moveField, isPreviewMode } = useFormBuilder();
+
   const [submittedData, setSubmittedData] = useState<Record<
     string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    any
+    FormDataEntryValue
   > | null>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,7 +42,9 @@ export default function FormBuilder() {
       <div className="flex flex-col items-center justify-center h-full rounded-lg border-2 border-dashed border-[#4a4a6e] text-gray-400">
         <FileQuestion className="w-16 h-16 mb-4" />
         <h2 className="text-xl text-[#2e2e4a] font-semibold">Canvas is Empty</h2>
-        <p className="text-[#2e2e4a]">Drag a field from the left palette to get started.</p>
+        <p className="text-[#2e2e4a]">
+          Drag a field from the left palette to get started.
+        </p>
       </div>
     );
   }
